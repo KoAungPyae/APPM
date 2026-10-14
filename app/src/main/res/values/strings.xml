@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">AI Video Studio</string>
+    <string name="app_tagline">ဇာတ်လမ်းမှ ဗီဒီယိုသို့ — Story to Video</string>
+    <string name="nav_home">ပင်မ</string>
+    <string name="nav_projects">ပရောဂျက်များ</string>
+    <string name="nav_characters">ဇာတ်ကောင်များ</string>
+    <string name="nav_prompts">ပရော့မ်များ</string>
+    <string name="nav_settings">ဆက်တင်</string>
+</resources>

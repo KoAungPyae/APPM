@@ -1,0 +1,6 @@
+{
+  "name": "AI Video Studio",
+  "description": "Professional video pre-production and prompt management studio for AI video creators with Burmese UI and English prompt generation.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
