@@ -1,4 +1,6 @@
 [versions]
+kotlin = "2.2.10"
+googleDevtoolsKsp = "2.2.10-1.0.31"  # Kotlin version 2.2.10 နှင့် ကိုက်ညီသော KSP ဗားရှင်းသို့ ပြောင်းရန်
 agp = "9.1.1"
 coreKtx = "1.18.0"
 junit = "4.13.2"
