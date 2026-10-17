@@ -1,3 +1,5 @@
+package com.example.ai
+
 data class GeneratedProjectData(
     val logline: String = "",
     val charactersSummary: String = "",
@@ -9,7 +11,6 @@ data class GeneratedProjectData(
     val characterList: List<String> = emptyList(),
     val scenes: List<String> = emptyList()
 )
-package com.example.ai
 
 import android.content.Context
 import com.example.BuildConfig
