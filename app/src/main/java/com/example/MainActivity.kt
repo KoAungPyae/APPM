@@ -45,6 +45,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        com.example.ai.GeminiStudioService.appContext = applicationContext
         enableEdgeToEdge()
         setContent {
             VideoStudioTheme {
