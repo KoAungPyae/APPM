@@ -10,7 +10,12 @@
         "android_client_info": {
           "package_name": "com.example"
         }
-      }
+      },
+      "api_key": [
+        {
+          "current_key": "dummy_api_key_for_build"
+        }
+      ]
     }
   ],
   "configuration_version": "1"
