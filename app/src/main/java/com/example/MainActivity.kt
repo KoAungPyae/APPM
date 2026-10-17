@@ -28,6 +28,19 @@ import com.example.ui.screens.PromptsGlobalScreen
 import com.example.ui.screens.SettingsScreen
 import com.example.ui.theme.StudioBackground
 import com.example.ui.theme.VideoStudioTheme
+import android.content.Context
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,7 +57,46 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun VideoStudioApp(viewModel: StudioViewModel = viewModel()) {
     val currentScreen by viewModel.currentScreen.collectAsState()
+    val context = LocalContext.current
+    val prefs = remember { context.getSharedPreferences("gemini_prefs", Context.MODE_PRIVATE) }
+    var apiKey by remember { mutableStateOf(prefs.getString("gemini_api_key", "") ?: "") }
+    var showApiKeyDialog by remember { mutableStateOf(apiKey.isEmpty()) }
+    var inputKey by remember { mutableStateOf("") }
 
+    if (showApiKeyDialog) {
+        AlertDialog(
+            onDismissRequest = { },
+            title = { Text(text = "Google AI Studio API Key ထည့်ပါ") },
+            text = {
+                Column {
+                    Text(text = "အသုံးပြုရန် Gemini API Key လိုအပ်ပါသည်")
+                    Spacer(modifier = Modifier.height(8.dp))
+                    OutlinedTextField(
+                        value = inputKey,
+                        onValueChange = { inputKey = it },
+                        label = { Text("AIzaSy...") },
+                        singleLine = true,
+                        visualTransformation = PasswordVisualTransformation()
+                    )
+                }
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        val trimmed = inputKey.trim()
+                        if (trimmed.isNotEmpty()) {
+                            prefs.edit().putString("gemini_api_key", trimmed).apply()
+                            apiKey = trimmed
+                            showApiKeyDialog = false
+                        }
+                    }
+                ) {
+                    Text("Save")
+                }
+            }
+        )
+    }
+    
     val isRootTab = when (currentScreen) {
         is ScreenDestination.Dashboard,
         is ScreenDestination.ProjectsList,
