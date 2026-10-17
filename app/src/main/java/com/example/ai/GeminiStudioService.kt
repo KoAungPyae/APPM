@@ -10,6 +10,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONArray
 import org.json.JSONObject
 import java.util.concurrent.TimeUnit
+import android.content.Context
 
 sealed class AiStatus {
     object NotConfigured : AiStatus()
@@ -18,7 +19,9 @@ sealed class AiStatus {
 }
 
 object GeminiStudioService {
-
+object GeminiStudioService {
+    var appContext: Context? = null
+    
     private val client by lazy {
         OkHttpClient.Builder()
             .connectTimeout(30, TimeUnit.SECONDS)
@@ -29,7 +32,17 @@ object GeminiStudioService {
     /**
      * Checks if a valid GEMINI_API_KEY is configured in AI Studio Secrets panel / BuildConfig
      */
-    fun getApiKey(): String? {
+        fun getApiKey(): String? {
+        // SharedPreferences ထဲက User ထည့်ထားတဲ့ Key ကို ဦးစားပေးဆွဲယူခြင်း
+        appContext?.let { ctx ->
+            val prefs = ctx.getSharedPreferences("gemini_prefs", Context.MODE_PRIVATE)
+            val savedKey = prefs.getString("gemini_api_key", "")
+            if (!savedKey.isNullOrBlank()) {
+                return savedKey
+            }
+        }
+
+        // BuildConfig ထဲတွင် Key ရှိပါက ဆွဲယူခြင်း (Fallback)
         return try {
             val field = BuildConfig::class.java.getField("GEMINI_API_KEY")
             val key = field.get(null) as? String
