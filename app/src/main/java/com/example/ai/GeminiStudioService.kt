@@ -118,7 +118,8 @@ object GeminiStudioService {
     }
 
     private fun callGeminiGenerateContent(apiKey: String, promptText: String): String {
-        val url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=$apiKey"
+        val url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=$apiKey
+"
 
         val jsonBody = JSONObject().apply {
             val contents = JSONArray().apply {
